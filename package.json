@@ -46,6 +46,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/prvnbist/react-redux-thunk-firebase-auth/issues"
-  },
-  "homepage": "https://github.com/prvnbist/react-redux-thunk-firebase-auth#readme"
+  }
 }
