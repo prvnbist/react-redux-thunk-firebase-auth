@@ -1,0 +1,51 @@
+{
+  "name": "react-redux-thunk-firebase-auth",
+  "version": "1.0.0",
+  "dependencies": {
+    "antd": "^3.20.5",
+    "firebase": "^6.2.4",
+    "node-sass": "^4.12.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "react-redux-firebase": "^3.0.0-alpha.12",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.0",
+    "redux": "^4.0.1",
+    "redux-firestore": "^0.8.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prvnbist/react-redux-thunk-firebase-auth.git"
+  },
+  "author": "Praveen Bisht",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prvnbist/react-redux-thunk-firebase-auth/issues"
+  },
+  "homepage": "https://github.com/prvnbist/react-redux-thunk-firebase-auth#readme"
+}

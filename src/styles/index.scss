@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+#wrapper {
+    width: 380px;
+    height: 640px;
+    border: 1px solid rgba(#000, 0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(#000, 0.2);
+    button {
+        margin-left: 16px;
+    }
+}
