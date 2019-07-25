@@ -28,7 +28,7 @@ export const signOut = history => (dispatch, getState) => {
         .catch(err => console.log(err))
 }
 
-export const signUp = ({ name, email, password }, history) => {
+export const signUp = ({ name, email, password, username }, history) => {
     return (dispatch, getState) => {
         auth.createUserWithEmailAndPassword(email, password)
             .then(res => {
@@ -37,6 +37,7 @@ export const signUp = ({ name, email, password }, history) => {
                     .doc(res.user.uid)
                     .set({
                         name: name,
+                        username: username,
                         createdAt: Date.now(),
                     })
                 return res.user.uid

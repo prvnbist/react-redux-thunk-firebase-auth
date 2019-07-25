@@ -1,21 +1,26 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const Home = ({ profile, signOut, history }) => {
+import { Layout, Icon } from 'antd'
+
+const Home = ({ profile, signOut, history, auth }) => {
     return (
-        <div>
+        <Layout>
             {!profile.isEmpty ? (
                 <h1>Welcome, {profile.name}</h1>
             ) : (
-                <h1>Dashboard</h1>
+                <h1>
+                    Home, please <Link to="/login">login</Link>!
+                </h1>
             )}
-        </div>
+        </Layout>
     )
 }
 
 const mapStateToProps = state => ({
     profile: state.firebase.profile,
+    auth: state.firebase.auth,
 })
 
 export default connect(mapStateToProps)(withRouter(Home))

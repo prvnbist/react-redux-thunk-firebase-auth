@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import {
     signUp,
@@ -7,60 +7,164 @@ import {
 } from '../../store/actions/authActions'
 import { withRouter } from 'react-router-dom'
 
-const SignUp = ({ signUp, history, signInWithTwitter, signInWithGoogle }) => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    const handleChange = e => {
-        if (e.target.id === 'name') {
-            setName(e.target.value)
-        } else if (e.target.id === 'email') {
-            setEmail(e.target.value.trim())
-        } else {
-            setPassword(e.target.value.trim())
-        }
-    }
+import { Layout, Form, Icon, Input, Button, Row, Col } from "antd";
+const SignUp = ({ signUp, history, signInWithTwitter, signInWithGoogle, form, auth }) => {
 
     const handleSubmit = e => {
-        e.preventDefault()
-        const creds = { email, password, name }
-        signUp(creds, history)
-    }
-
+		e.preventDefault();
+	    form.validateFields((err, {email,password,name,username}) => {
+			if (!err) {
+				const creds = { email, password, name, username }
+                signUp(creds, history)
+			}
+		});
+    };
+    const { getFieldDecorator } = form;
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={name}
-                    id="name"
-                    placeholder="Name"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="email"
-                    value={email}
-                    id="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    value={password}
-                    id="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    required
-                />
-                <button>SignUp</button>
-            </form>
-            <button onClick={() => signInWithTwitter(history)}>twitter</button>
-            <button onClick={() => signInWithGoogle(history)}>Google</button>
-        </div>
+        <Layout>
+				<h2>Signup</h2>
+				<Row id="components-form-demo-normal-login">
+					{auth && (
+						<span>{auth}</span>
+					)}
+					<Col>
+						<Form
+							onSubmit={handleSubmit}
+							className="signup-form"
+						>
+							<Form.Item>
+								{getFieldDecorator("name", {
+									rules: [
+										{
+											required: true,
+											message: "Fullname is required!"
+										}
+									]
+								})(
+									<Input
+										prefix={
+											<Icon
+												type="smile"
+												style={{
+													color: "rgba(0,0,0,.25)"
+												}}
+											/>
+										}
+										placeholder="Full name"
+									/>
+								)}
+							</Form.Item>
+							<Form.Item>
+								{getFieldDecorator("username", {
+									rules: [
+										{
+											required: true,
+											message: "Username is required!"
+										}
+									]
+								})(
+									<Input
+										prefix={
+											<Icon
+												type="number"
+												style={{
+													color: "rgba(0,0,0,.25)"
+												}}
+											/>
+										}
+										placeholder="Username"
+									/>
+								)}
+							</Form.Item>
+							<Form.Item>
+								{getFieldDecorator("email", {
+									rules: [
+										{
+											required: true,
+											message: "Please input your email!"
+										}
+									]
+								})(
+									<Input
+										prefix={
+											<Icon
+												type="user"
+												style={{
+													color: "rgba(0,0,0,.25)"
+												}}
+											/>
+										}
+										placeholder="Email"
+									/>
+								)}
+							</Form.Item>
+							<Form.Item>
+								{getFieldDecorator("password", {
+									rules: [
+										{
+											required: true,
+											message:
+												"Please input your Password!"
+										}
+									]
+								})(
+									<Input
+										prefix={
+											<Icon
+												type="lock"
+												style={{
+													color: "rgba(0,0,0,.25)"
+												}}
+											/>
+										}
+										type="password"
+										placeholder="Password"
+									/>
+								)}
+							</Form.Item>
+							<Form.Item>
+								<Button
+									type="primary"
+									htmlType="submit"
+									className="login-form-button"
+								>
+									Sign up
+								</Button>
+							</Form.Item>
+						</Form>
+					</Col>
+				</Row>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                    type="primary"
+                    onClick={() => signInWithTwitter(history)}
+                    style={{ width: '48%', textAlign: 'unset' }}
+                >
+                    <span>Sign in with </span>
+                    <Icon
+                        type="twitter"
+                        style={{ float: 'right', marginTop: '3px' }}
+                    />
+                </Button>
+                <Button
+                    type="danger"
+                    onClick={() => signInWithGoogle(history)}
+                    style={{ width: '48%', textAlign: 'unset' }}
+                >
+                    <span>Sign in with </span>
+                    <Icon
+                        type="google"
+                        style={{ float: 'right', marginTop: '3px' }}
+                    />
+                </Button>
+            </div>
+			</Layout>
     )
 }
+
+const mapStateToProps = state => ({
+    auth: state.auth.authError,
+})
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -71,6 +175,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
-)(withRouter(SignUp))
+)(withRouter(Form.create({ name: "normal_login" })(SignUp)))

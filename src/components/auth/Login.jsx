@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {
@@ -7,52 +7,117 @@ import {
     signInWithGoogle,
 } from '../../store/actions/authActions'
 
+import { Form, Icon, Input, Button, Row, Col, Layout } from 'antd'
+
 const Login = ({
     signIn,
     history,
     auth,
     signInWithTwitter,
     signInWithGoogle,
+    form,
 }) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    const handleChange = e => {
-        if (e.target.id === 'email') {
-            setEmail(e.target.value)
-        } else {
-            setPassword(e.target.value)
-        }
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
-        const creds = { email, password }
-        signIn(creds, history)
+        form.validateFields((err, values) => {
+            if (!err) {
+                const creds = { email: values.email, password: values.password }
+                signIn(creds, history)
+            }
+        })
     }
+    const { getFieldDecorator } = form
     return (
-        <div>
-            {auth && <span>{auth}</span>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    value={email}
-                    id="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    value={password}
-                    id="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                />
-                <button>Login</button>
-            </form>
-            <button onClick={() => signInWithTwitter(history)}>twitter</button>
-            <button onClick={() => signInWithGoogle(history)}>Google</button>
-        </div>
+        <Layout>
+            <h2>Login</h2>
+            <Row id="components-form-demo-normal-login">
+                {auth && <span>{auth}</span>}
+                <Col>
+                    <Form onSubmit={handleSubmit} className="login-form">
+                        <Form.Item>
+                            {getFieldDecorator('email', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your email!',
+                                    },
+                                ],
+                                initialValue: '',
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="user"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    placeholder="Email"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            {getFieldDecorator('password', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your Password!',
+                                    },
+                                ],
+                                initialValue: '',
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="login-form-button"
+                            >
+                                Log in
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Col>
+            </Row>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                    type="primary"
+                    onClick={() => signInWithTwitter(history)}
+                    style={{ width: '48%', textAlign: 'unset' }}
+                >
+                    <span>Sign in with </span>
+                    <Icon
+                        type="twitter"
+                        style={{ float: 'right', marginTop: '3px' }}
+                    />
+                </Button>
+                <Button
+                    type="danger"
+                    onClick={() => signInWithGoogle(history)}
+                    style={{ width: '48%', textAlign: 'unset' }}
+                >
+                    <span>Sign in with </span>
+                    <Icon
+                        type="google"
+                        style={{ float: 'right', marginTop: '3px' }}
+                    />
+                </Button>
+            </div>
+        </Layout>
     )
 }
 
@@ -69,4 +134,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(Login))
+)(withRouter(Form.create({ name: 'normal_login' })(Login)))
