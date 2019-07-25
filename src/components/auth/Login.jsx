@@ -14,8 +14,8 @@ const Login = ({
     signInWithTwitter,
     signInWithGoogle,
 }) => {
-    const [email, setEmail] = useState('prvnbist@gmail.com')
-    const [password, setPassword] = useState('123456')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleChange = e => {
         if (e.target.id === 'email') {
