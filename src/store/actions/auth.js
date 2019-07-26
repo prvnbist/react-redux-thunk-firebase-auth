@@ -4,7 +4,7 @@ import {
     firestore,
     twitterProvider,
     googleProvider,
-} from '../../config/fbConfig'
+} from '../../config/firebase-config'
 
 export const signIn = ({ email, password }, history) => {
     return (dispatch, getState) => {

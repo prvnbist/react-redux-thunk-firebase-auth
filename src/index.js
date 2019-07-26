@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore'
-import { firebase } from './config/fbConfig'
+import { firebase } from './config/firebase-config'
 
 import store from './store/store'
 
@@ -14,12 +14,12 @@ import './styles/index.scss'
 import Navbar from './components/Navbar'
 import { Layout, Icon } from 'antd'
 
-import PrivateRoute from './utils/PrivateRoute'
+import PrivateRoute from './components/PrivateRoute'
 
-const Home = lazy(() => import('./components/Home'))
-const Dashboard = lazy(() => import('./components/Dashboard'))
-const Login = lazy(() => import('./components/auth/Login'))
-const SignUp = lazy(() => import('./components/auth/SignUp'))
+const Home = lazy(() => import('./pages/Home'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Login = lazy(() => import('./pages/Login'))
+const SignUp = lazy(() => import('./pages/SignUp'))
 
 const rrfProps = {
     firebase,

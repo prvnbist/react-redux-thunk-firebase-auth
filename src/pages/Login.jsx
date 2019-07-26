@@ -1,82 +1,51 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter, Redirect } from 'react-router-dom'
 import {
-    signUp,
+    signIn,
     signInWithTwitter,
     signInWithGoogle,
-} from '../../store/actions/authActions'
-import { withRouter } from 'react-router-dom'
+} from '../store/actions/auth'
 
-import { Layout, Form, Icon, Input, Button, Row, Col } from 'antd'
-const SignUp = ({
-    signUp,
+import { Form, Icon, Input, Button, Row, Col, Layout } from 'antd'
+
+const Login = ({
+    signIn,
     history,
+    error,
     signInWithTwitter,
     signInWithGoogle,
     form,
     auth,
+    location,
 }) => {
     const handleSubmit = e => {
         e.preventDefault()
-        form.validateFields((err, { email, password, name, username }) => {
+        form.validateFields((err, values) => {
             if (!err) {
-                const creds = { email, password, name, username }
-                signUp(creds, history)
+                const creds = { email: values.email, password: values.password }
+                signIn(creds, history)
             }
         })
     }
     const { getFieldDecorator } = form
+    if (auth.uid) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/dashboard',
+                    state: { from: location },
+                }}
+            />
+        )
+    }
     return (
         <Layout className="content">
-            <h2>Signup</h2>
+            <h2>Login</h2>
             <Row id="components-form-demo-normal-login">
-                {auth && <span>{auth}</span>}
+                {error && <span>{error}</span>}
                 <Col>
-                    <Form onSubmit={handleSubmit} className="signup-form">
-                        <Form.Item>
-                            {getFieldDecorator('name', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: 'Fullname is required!',
-                                    },
-                                ],
-                            })(
-                                <Input
-                                    prefix={
-                                        <Icon
-                                            type="smile"
-                                            style={{
-                                                color: 'rgba(0,0,0,.25)',
-                                            }}
-                                        />
-                                    }
-                                    placeholder="Full name"
-                                />
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            {getFieldDecorator('username', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: 'Username is required!',
-                                    },
-                                ],
-                            })(
-                                <Input
-                                    prefix={
-                                        <Icon
-                                            type="number"
-                                            style={{
-                                                color: 'rgba(0,0,0,.25)',
-                                            }}
-                                        />
-                                    }
-                                    placeholder="Username"
-                                />
-                            )}
-                        </Form.Item>
+                    <Form onSubmit={handleSubmit} className="login-form">
                         <Form.Item>
                             {getFieldDecorator('email', {
                                 rules: [
@@ -85,6 +54,7 @@ const SignUp = ({
                                         message: 'Please input your email!',
                                     },
                                 ],
+                                initialValue: '',
                             })(
                                 <Input
                                     prefix={
@@ -107,6 +77,7 @@ const SignUp = ({
                                         message: 'Please input your Password!',
                                     },
                                 ],
+                                initialValue: '',
                             })(
                                 <Input
                                     prefix={
@@ -128,7 +99,7 @@ const SignUp = ({
                                 htmlType="submit"
                                 className="login-form-button"
                             >
-                                Sign up
+                                Log in
                             </Button>
                         </Form.Item>
                     </Form>
@@ -179,18 +150,17 @@ const SignUp = ({
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth.authError,
+    error: state.auth.authError,
+    auth: state.firebase.auth,
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        signUp: (newUser, history) => dispatch(signUp(newUser, history)),
-        signInWithTwitter: history => dispatch(signInWithTwitter(history)),
-        signInWithGoogle: history => dispatch(signInWithGoogle(history)),
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    signIn: (credentials, history) => dispatch(signIn(credentials, history)),
+    signInWithTwitter: history => dispatch(signInWithTwitter(history)),
+    signInWithGoogle: history => dispatch(signInWithGoogle(history)),
+})
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(Form.create({ name: 'normal_login' })(SignUp)))
+)(withRouter(Form.create({ name: 'normal_login' })(Login)))

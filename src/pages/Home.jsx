@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Login from './auth/Login'
-import SignUp from './auth/SignUp'
+import Login from './Login'
+import SignUp from './SignUp'
 
 import { Layout, Tabs, Icon } from 'antd'
 

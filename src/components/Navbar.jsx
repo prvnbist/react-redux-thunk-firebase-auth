@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { Button, Icon } from 'antd'
 
-import { signOut } from '../store/actions/authActions'
+import { signOut } from '../store/actions/auth'
 
 const Navbar = ({ profile, signOut, history }) => {
     return (
