@@ -1,26 +1,34 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { Layout, Icon } from 'antd'
+import Login from './auth/Login'
+import SignUp from './auth/SignUp'
 
-const Home = ({ profile, signOut, history, auth }) => {
+import { Layout, Tabs, Icon } from 'antd'
+
+const { TabPane } = Tabs
+
+const Home = ({ auth }) => {
     return (
         <Layout>
-            {!profile.isEmpty ? (
-                <h1>Welcome, {profile.name}</h1>
+            {auth.isLoaded ? (
+                <Tabs tabPosition={'bottom'}>
+                    <TabPane tab="Login" key="1">
+                        <Login />
+                    </TabPane>
+                    <TabPane tab="Sign Up" key="2">
+                        <SignUp />
+                    </TabPane>
+                </Tabs>
             ) : (
-                <h1>
-                    Home, please <Link to="/login">login</Link>!
-                </h1>
+                <Icon type="loading" />
             )}
         </Layout>
     )
 }
 
 const mapStateToProps = state => ({
-    profile: state.firebase.profile,
     auth: state.firebase.auth,
 })
 
-export default connect(mapStateToProps)(withRouter(Home))
+export default connect(mapStateToProps)(Home)

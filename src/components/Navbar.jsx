@@ -54,16 +54,7 @@ const Navbar = ({ profile, signOut, history }) => {
                                 Logout
                             </Button>
                         </div>
-                    ) : (
-                        <>
-                            <Link to="/login">
-                                <Button type="default">Login</Button>
-                            </Link>
-                            <Link to="/signup">
-                                <Button type="primary">SignUp</Button>
-                            </Link>
-                        </>
-                    )}
+                    ) : null}
                 </div>
             )}
         </nav>

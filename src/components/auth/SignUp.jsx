@@ -134,27 +134,43 @@ const SignUp = ({ signUp, history, signInWithTwitter, signInWithGoogle, form, au
 						</Form>
 					</Col>
 				</Row>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
-                    type="primary"
+                    type="default"
                     onClick={() => signInWithTwitter(history)}
-                    style={{ width: '48%', textAlign: 'unset' }}
+                    style={{
+                        width: '48%',
+                        textAlign: 'unset',
+                        border: '1px solid #1da1f2',
+                    }}
                 >
                     <span>Sign in with </span>
                     <Icon
                         type="twitter"
-                        style={{ float: 'right', marginTop: '3px' }}
+                        style={{
+                            float: 'right',
+                            marginTop: '3px',
+                            color: '#1da1f2',
+                        }}
                     />
                 </Button>
                 <Button
-                    type="danger"
+                    type="default"
                     onClick={() => signInWithGoogle(history)}
-                    style={{ width: '48%', textAlign: 'unset' }}
+                    style={{
+                        width: '48%',
+                        textAlign: 'unset',
+                        border: '1px solid #dd4b39',
+                    }}
                 >
                     <span>Sign in with </span>
                     <Icon
                         type="google"
-                        style={{ float: 'right', marginTop: '3px' }}
+                        style={{
+                            float: 'right',
+                            marginTop: '3px',
+                            color: '#dd4b39',
+                        }}
                     />
                 </Button>
             </div>

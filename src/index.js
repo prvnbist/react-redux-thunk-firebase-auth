@@ -14,7 +14,10 @@ import './styles/index.scss'
 import Navbar from './components/Navbar'
 import { Layout, Icon } from 'antd'
 
+import PrivateRoute from './utils/PrivateRoute'
+
 const Home = lazy(() => import('./components/Home'))
+const Dashboard = lazy(() => import('./components/Dashboard'))
 const Login = lazy(() => import('./components/auth/Login'))
 const SignUp = lazy(() => import('./components/auth/SignUp'))
 
@@ -43,6 +46,10 @@ ReactDOM.render(
                     >
                         <Switch>
                             <Route exact path="/" component={Home} />
+                            <PrivateRoute
+                                path="/dashboard"
+                                component={Dashboard}
+                            />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/signup" component={SignUp} />
                             <Route

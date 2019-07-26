@@ -10,7 +10,7 @@ export const signIn = ({ email, password }, history) => {
     return (dispatch, getState) => {
         auth.signInWithEmailAndPassword(email, password)
             .then(() => {
-                history.push('/')
+                history.push('/dashboard')
                 dispatch({ type: 'LOGIN_SUCCESS' })
             })
             .catch(err => {
@@ -22,7 +22,7 @@ export const signIn = ({ email, password }, history) => {
 export const signOut = history => (dispatch, getState) => {
     auth.signOut()
         .then(() => {
-            history.push('/login')
+            history.push('/')
             dispatch({ type: 'SIGNOUT_SUCCESS' })
         })
         .catch(err => console.log(err))
@@ -43,7 +43,7 @@ export const signUp = ({ name, email, password, username }, history) => {
                 return res.user.uid
             })
             .then(() => {
-                history.push('/')
+                history.push('/dashboard')
                 dispatch({
                     type: 'SIGNUP_SUCCESS',
                 })
@@ -75,7 +75,7 @@ export const signInWithTwitter = history => {
             })
             .then(() => {
                 dispatch({ type: 'LOGIN_SUCCESS' })
-                history.push('/')
+                history.push('/dashboard')
             })
             .catch(err => console.log(err))
     }
@@ -99,7 +99,7 @@ export const signInWithGoogle = history => {
                 }
             })
             .then(() => {
-                history.push('/')
+                history.push('/dashboard')
                 dispatch({ type: 'LOGIN_SUCCESS' })
             })
             .catch(err => console.log(err))
