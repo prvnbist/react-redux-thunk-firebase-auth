@@ -1,18 +1,36 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { Layout } from 'antd'
+import { Layout, Spin, Avatar } from 'antd'
 
-const Dashboard = ({ profile, signOut, history, auth }) => {
+const Dashboard = ({ profile, auth }) => {
     return (
         <Layout className="content">
-            {!profile.isEmpty ? (
-                <h1>Welcome, {profile.name}</h1>
+            {profile.isLoaded ? (
+                <React.Fragment>
+                    <header id="dashboard__header">
+                        {profile.image ? (
+                            <Avatar size={64} src={profile.image} />
+                        ) : (
+                            <Avatar
+                                size={64}
+                                style={{
+                                    background: '#7e3cf4',
+                                }}
+                            >
+                                {profile.name[0]}
+                                {profile.name.split(' ')[1][0]}
+                            </Avatar>
+                        )}
+                        <div>
+                            <h2>{profile.name}</h2>
+                            <span>@{profile.username}</span>
+                        </div>
+                    </header>
+                </React.Fragment>
             ) : (
-                <h1>
-                    Home, please <Link to="/login">login</Link>!
-                </h1>
+                <Spin />
             )}
         </Layout>
     )

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { Button, Icon } from 'antd'
+import { Button, Icon, Spin } from 'antd'
 
 import { signOut } from '../store/actions/auth'
 
@@ -15,45 +15,13 @@ const Navbar = ({ profile, signOut, history }) => {
                 </Link>
             </div>
             {!profile.isLoaded ? (
-                <Icon type="loading" />
+                <Spin />
             ) : (
                 <div id="nav__items">
                     {!profile.isEmpty ? (
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            {profile.image ? (
-                                <img
-                                    src={profile.image}
-                                    alt={profile.name}
-                                    style={{
-                                        width: '32px',
-                                        height: '32px',
-                                        borderRadius: '50%',
-                                    }}
-                                />
-                            ) : (
-                                <div
-                                    style={{
-                                        width: '32px',
-                                        height: '32px',
-                                        borderRadius: '50%',
-                                        background: '#7e3cf4',
-                                        color: '#fff',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {profile.name[0]}
-                                    {profile.name.split(' ')[1][0]}
-                                </div>
-                            )}
-                            <Button
-                                type="danger"
-                                onClick={() => signOut(history)}
-                            >
-                                Logout
-                            </Button>
-                        </div>
+                        <Button type="danger" onClick={() => signOut(history)}>
+                            Logout
+                        </Button>
                     ) : null}
                 </div>
             )}
