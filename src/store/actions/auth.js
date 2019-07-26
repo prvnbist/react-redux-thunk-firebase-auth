@@ -70,6 +70,7 @@ export const signInWithTwitter = history => {
                             username: user.username,
                             image: user.profile.profile_image_url_https,
                             description: user.profile.description,
+                            createdAt: Date.now(),
                         })
                 }
             })
@@ -95,6 +96,7 @@ export const signInWithGoogle = history => {
                         .set({
                             name: user.profile.name,
                             image: user.profile.picture,
+                            createdAt: Date.now(),
                         })
                 }
             })
