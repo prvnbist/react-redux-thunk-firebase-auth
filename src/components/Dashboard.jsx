@@ -6,7 +6,7 @@ import { Layout } from 'antd'
 
 const Dashboard = ({ profile, signOut, history, auth }) => {
     return (
-        <Layout>
+        <Layout className="content">
             {!profile.isEmpty ? (
                 <h1>Welcome, {profile.name}</h1>
             ) : (

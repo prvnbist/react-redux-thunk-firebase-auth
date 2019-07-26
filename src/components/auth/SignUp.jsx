@@ -7,134 +7,134 @@ import {
 } from '../../store/actions/authActions'
 import { withRouter } from 'react-router-dom'
 
-import { Layout, Form, Icon, Input, Button, Row, Col } from "antd";
-const SignUp = ({ signUp, history, signInWithTwitter, signInWithGoogle, form, auth }) => {
-
+import { Layout, Form, Icon, Input, Button, Row, Col } from 'antd'
+const SignUp = ({
+    signUp,
+    history,
+    signInWithTwitter,
+    signInWithGoogle,
+    form,
+    auth,
+}) => {
     const handleSubmit = e => {
-		e.preventDefault();
-	    form.validateFields((err, {email,password,name,username}) => {
-			if (!err) {
-				const creds = { email, password, name, username }
+        e.preventDefault()
+        form.validateFields((err, { email, password, name, username }) => {
+            if (!err) {
+                const creds = { email, password, name, username }
                 signUp(creds, history)
-			}
-		});
-    };
-    const { getFieldDecorator } = form;
+            }
+        })
+    }
+    const { getFieldDecorator } = form
     return (
-        <Layout>
-				<h2>Signup</h2>
-				<Row id="components-form-demo-normal-login">
-					{auth && (
-						<span>{auth}</span>
-					)}
-					<Col>
-						<Form
-							onSubmit={handleSubmit}
-							className="signup-form"
-						>
-							<Form.Item>
-								{getFieldDecorator("name", {
-									rules: [
-										{
-											required: true,
-											message: "Fullname is required!"
-										}
-									]
-								})(
-									<Input
-										prefix={
-											<Icon
-												type="smile"
-												style={{
-													color: "rgba(0,0,0,.25)"
-												}}
-											/>
-										}
-										placeholder="Full name"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								{getFieldDecorator("username", {
-									rules: [
-										{
-											required: true,
-											message: "Username is required!"
-										}
-									]
-								})(
-									<Input
-										prefix={
-											<Icon
-												type="number"
-												style={{
-													color: "rgba(0,0,0,.25)"
-												}}
-											/>
-										}
-										placeholder="Username"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								{getFieldDecorator("email", {
-									rules: [
-										{
-											required: true,
-											message: "Please input your email!"
-										}
-									]
-								})(
-									<Input
-										prefix={
-											<Icon
-												type="user"
-												style={{
-													color: "rgba(0,0,0,.25)"
-												}}
-											/>
-										}
-										placeholder="Email"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								{getFieldDecorator("password", {
-									rules: [
-										{
-											required: true,
-											message:
-												"Please input your Password!"
-										}
-									]
-								})(
-									<Input
-										prefix={
-											<Icon
-												type="lock"
-												style={{
-													color: "rgba(0,0,0,.25)"
-												}}
-											/>
-										}
-										type="password"
-										placeholder="Password"
-									/>
-								)}
-							</Form.Item>
-							<Form.Item>
-								<Button
-									type="primary"
-									htmlType="submit"
-									className="login-form-button"
-								>
-									Sign up
-								</Button>
-							</Form.Item>
-						</Form>
-					</Col>
-				</Row>
-				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Layout className="content">
+            <h2>Signup</h2>
+            <Row id="components-form-demo-normal-login">
+                {auth && <span>{auth}</span>}
+                <Col>
+                    <Form onSubmit={handleSubmit} className="signup-form">
+                        <Form.Item>
+                            {getFieldDecorator('name', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Fullname is required!',
+                                    },
+                                ],
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="smile"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    placeholder="Full name"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            {getFieldDecorator('username', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Username is required!',
+                                    },
+                                ],
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="number"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    placeholder="Username"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            {getFieldDecorator('email', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your email!',
+                                    },
+                                ],
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="user"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    placeholder="Email"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            {getFieldDecorator('password', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your Password!',
+                                    },
+                                ],
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{
+                                                color: 'rgba(0,0,0,.25)',
+                                            }}
+                                        />
+                                    }
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="login-form-button"
+                            >
+                                Sign up
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Col>
+            </Row>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                     type="default"
                     onClick={() => signInWithTwitter(history)}
@@ -174,7 +174,7 @@ const SignUp = ({ signUp, history, signInWithTwitter, signInWithGoogle, form, au
                     />
                 </Button>
             </div>
-			</Layout>
+        </Layout>
     )
 }
 
@@ -193,4 +193,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(Form.create({ name: "normal_login" })(SignUp)))
+)(withRouter(Form.create({ name: 'normal_login' })(SignUp)))

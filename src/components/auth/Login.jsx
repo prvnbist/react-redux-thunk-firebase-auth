@@ -40,7 +40,7 @@ const Login = ({
         )
     }
     return (
-        <Layout>
+        <Layout className="content">
             <h2>Login</h2>
             <Row id="components-form-demo-normal-login">
                 {error && <span>{error}</span>}

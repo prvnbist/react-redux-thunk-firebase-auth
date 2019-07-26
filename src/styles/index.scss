@@ -11,7 +11,7 @@ body {
 }
 
 #wrapper {
-    width: 380px;
+    width: 340px;
     height: 640px;
     border: 1px solid rgba(#000, 0.2);
 }
@@ -28,15 +28,16 @@ nav {
     }
 }
 
+.content {
+    padding: 16px 16px 0;
+}
+
 .ant-layout {
     background: #fff;
-    margin-top: 24px;
-    padding: 0 16px;
 }
 
 .ant-tabs {
-    height: calc(640px - 66px);   
-    margin-top: -24px;
+    height: calc(640px - 66px);  
 }
 
 .ant-tabs-bottom-bar {
@@ -51,5 +52,18 @@ nav {
         text-align: center;
         width: 50%;
         margin: 0;
+    }
+}
+
+@media screen and (max-width:567px) {
+    body {
+        margin-top: 0;
+    }
+    #wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+    .ant-tabs {
+        height: calc(100vh - 66px);
     }
 }
