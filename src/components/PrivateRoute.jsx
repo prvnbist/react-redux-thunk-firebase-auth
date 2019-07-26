@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Layout, Icon } from 'antd'
+import { Layout, Spin } from 'antd'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => {
     if (auth.isLoaded) {
@@ -24,8 +24,8 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
         )
     } else {
         return (
-            <Layout>
-                <Icon type="loading" />
+            <Layout className="content">
+                <Spin />
             </Layout>
         )
     }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Login from './Login'
 import SignUp from './SignUp'
 
-import { Layout, Tabs, Icon } from 'antd'
+import { Layout, Tabs, Spin } from 'antd'
 
 const { TabPane } = Tabs
 
@@ -21,7 +21,7 @@ const Home = ({ auth }) => {
                     </TabPane>
                 </Tabs>
             ) : (
-                <Icon type="loading" />
+                <Spin />
             )}
         </Layout>
     )

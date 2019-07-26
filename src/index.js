@@ -12,7 +12,7 @@ import 'antd/dist/antd.css'
 import './styles/index.scss'
 
 import Navbar from './components/Navbar'
-import { Layout, Icon } from 'antd'
+import { Layout, Spin } from 'antd'
 
 import PrivateRoute from './components/PrivateRoute'
 
@@ -39,8 +39,8 @@ ReactDOM.render(
                     <Navbar />
                     <Suspense
                         fallback={
-                            <Layout>
-                                <Icon type="loading" />
+                            <Layout className="content">
+                                <Spin />
                             </Layout>
                         }
                     >
