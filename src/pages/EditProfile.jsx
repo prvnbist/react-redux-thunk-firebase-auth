@@ -1,8 +1,18 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { Layout, Spin, Form, Input, Icon, Tag, Button, Alert } from 'antd'
+import {
+    Layout,
+    Spin,
+    Form,
+    Input,
+    Icon,
+    Tag,
+    Button,
+    Alert,
+    PageHeader,
+} from 'antd'
 
 import { updateProfile } from '../store/actions/profile'
 
@@ -14,6 +24,7 @@ const EditProfile = ({
     errors,
     success,
     status,
+    history,
 }) => {
     const handleSubmit = e => {
         e.preventDefault()
@@ -35,7 +46,10 @@ const EditProfile = ({
             {profile.isLoaded ? (
                 <React.Fragment>
                     <header>
-                        <h2>Edit Profile</h2>
+                        <PageHeader
+                            onBack={() => history.push('/dashboard')}
+                            title="Edit Profile"
+                        />
                         {profile.provider === 'google' && (
                             <Tag color="red">Google</Tag>
                         )}
@@ -125,13 +139,8 @@ const EditProfile = ({
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                             >
-                                                {' '}
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="4"
-                                                />{' '}
-                                                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />{' '}
+                                                <circle cx="12" cy="12" r="4" />
+                                                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
                                             </svg>
                                         }
                                         placeholder="Enter your username"
@@ -165,9 +174,8 @@ const EditProfile = ({
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                             >
-                                                {' '}
-                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />{' '}
-                                                <polyline points="22,6 12,13 2,6" />{' '}
+                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                                <polyline points="22,6 12,13 2,6" />
                                             </svg>
                                         }
                                         placeholder="Enter your email"
@@ -192,9 +200,8 @@ const EditProfile = ({
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                             >
-                                                {' '}
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />{' '}
-                                                <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />{' '}
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                                <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" />
                                             </svg>
                                         }
                                         placeholder="Enter your bio..."
