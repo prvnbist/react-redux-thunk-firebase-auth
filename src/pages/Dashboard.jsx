@@ -1,17 +1,20 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { Layout, Spin, Avatar } from 'antd'
+import { Layout, Spin, Avatar, Button } from 'antd'
 
 const Dashboard = ({ profile, auth }) => {
     return (
-        <Layout className="content">
+        <Layout className="content" id="dashboard">
             {profile.isLoaded ? (
                 <React.Fragment>
-                    <header id="dashboard__header">
-                        {profile.image ? (
-                            <Avatar size={64} src={profile.image} />
+                    <header style={{ marginBottom: '16px' }}>
+                        {profile.image || auth.photoURL ? (
+                            <Avatar
+                                size={64}
+                                src={profile.image || auth.photoURL}
+                            />
                         ) : (
                             <Avatar
                                 size={64}
@@ -25,9 +28,18 @@ const Dashboard = ({ profile, auth }) => {
                         )}
                         <div>
                             <h2>{profile.name}</h2>
-                            <span>@{profile.username}</span>
+                            {profile.username && (
+                                <span>@{profile.username}</span>
+                            )}
                         </div>
                     </header>
+                    <main>
+                        <Link to="/edit-profile">
+                            <Button type="default" size={'small'}>
+                                Edit Profile
+                            </Button>
+                        </Link>
+                    </main>
                 </React.Fragment>
             ) : (
                 <Spin />

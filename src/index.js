@@ -18,6 +18,7 @@ import PrivateRoute from './components/PrivateRoute'
 
 const Home = lazy(() => import('./pages/Home'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
+const EditProfile = lazy(() => import('./pages/EditProfile'))
 const Login = lazy(() => import('./pages/Login'))
 const SignUp = lazy(() => import('./pages/SignUp'))
 
@@ -49,6 +50,10 @@ ReactDOM.render(
                             <PrivateRoute
                                 path="/dashboard"
                                 component={Dashboard}
+                            />
+                            <PrivateRoute
+                                path="/edit-profile"
+                                component={EditProfile}
                             />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/signup" component={SignUp} />
