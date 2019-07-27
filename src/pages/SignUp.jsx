@@ -41,7 +41,6 @@ const SignUp = ({
                                         message: 'Fullname is required!',
                                     },
                                 ],
-                                initialValue: 'Praveen Bisht',
                             })(
                                 <Input
                                     prefix={
@@ -64,7 +63,6 @@ const SignUp = ({
                                         message: 'Username is required!',
                                     },
                                 ],
-                                initialValue: 'prvnbist',
                             })(
                                 <Input
                                     prefix={
@@ -87,7 +85,6 @@ const SignUp = ({
                                         message: 'Please input your email!',
                                     },
                                 ],
-                                initialValue: 'prvnbist@gmail.com',
                             })(
                                 <Input
                                     prefix={
@@ -110,7 +107,6 @@ const SignUp = ({
                                         message: 'Please input your Password!',
                                     },
                                 ],
-                                initialValue: '1234567',
                             })(
                                 <Input
                                     prefix={
