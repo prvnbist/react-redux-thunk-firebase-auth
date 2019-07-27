@@ -41,6 +41,7 @@ export const signUp = ({ name, email, password, username }, history) => {
                     .set({
                         name: name,
                         username: username,
+                        email: email,
                         createdAt: Date.now(),
                     })
                 return res.user.uid
@@ -74,9 +75,13 @@ export const signInWithTwitter = history => {
                         .set({
                             name: user.profile.name,
                             username: user.username,
-                            image: user.profile.profile_image_url_https,
-                            description: user.profile.description,
+                            image: user.profile.profile_image_url_https.replace(
+                                '_normal',
+                                ''
+                            ),
+                            bio: user.profile.description,
                             createdAt: Date.now(),
+                            provider: 'twitter',
                         })
                 }
             })
@@ -102,7 +107,9 @@ export const signInWithGoogle = history => {
                         .set({
                             name: user.profile.name,
                             image: user.profile.picture,
+                            email: user.profile.email,
                             createdAt: Date.now(),
+                            provider: 'google',
                         })
                 }
             })
