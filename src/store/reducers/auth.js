@@ -6,7 +6,6 @@ const authReducer = (state = initState, action) => {
     switch (action.type) {
         case 'LOGIN_ERROR':
             return {
-                ...state,
                 authError:
                     action.err === 'auth/network-request-failed'
                         ? 'Network issue, please try again!'
@@ -14,20 +13,21 @@ const authReducer = (state = initState, action) => {
             }
         case 'LOGIN_SUCCESS':
             return {
-                ...state,
                 authError: null,
             }
         case 'SIGNOUT_SUCCESS':
             return state
         case 'SIGNUP_SUCCESS':
             return {
-                ...state,
                 authError: null,
             }
         case 'SIGNUP_ERROR':
             return {
-                ...state,
-                authError: action.err.message,
+                authError: action.err,
+            }
+        case 'CLEAR_ERRORS':
+            return {
+                authError: null,
             }
         default:
             return state

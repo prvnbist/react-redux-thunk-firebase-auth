@@ -7,7 +7,7 @@ import {
 } from '../../config/firebase-config'
 
 export const signIn = ({ email, password }, history) => {
-    return (dispatch, getState) => {
+    return dispatch => {
         auth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 history.push('/dashboard')
@@ -15,11 +15,14 @@ export const signIn = ({ email, password }, history) => {
             })
             .catch(err => {
                 dispatch({ type: 'LOGIN_ERROR', err })
+                setTimeout(() => {
+                    return dispatch({ type: 'CLEAR_ERRORS' })
+                }, 3000)
             })
     }
 }
 
-export const signOut = history => (dispatch, getState) => {
+export const signOut = history => dispatch => {
     auth.signOut()
         .then(() => {
             history.push('/')
@@ -29,7 +32,7 @@ export const signOut = history => (dispatch, getState) => {
 }
 
 export const signUp = ({ name, email, password, username }, history) => {
-    return (dispatch, getState) => {
+    return dispatch => {
         auth.createUserWithEmailAndPassword(email, password)
             .then(res => {
                 firestore
@@ -50,12 +53,15 @@ export const signUp = ({ name, email, password, username }, history) => {
             })
             .catch(err => {
                 dispatch({ type: 'SIGNUP_ERROR', err: err.message })
+                setTimeout(() => {
+                    return dispatch({ type: 'CLEAR_ERRORS' })
+                }, 3000)
             })
     }
 }
 
 export const signInWithTwitter = history => {
-    return (dispatch, getState) => {
+    return dispatch => {
         firebase
             .auth()
             .signInWithPopup(twitterProvider)
@@ -83,7 +89,7 @@ export const signInWithTwitter = history => {
 }
 
 export const signInWithGoogle = history => {
-    return (dispatch, getState) => {
+    return dispatch => {
         firebase
             .auth()
             .signInWithPopup(googleProvider)
