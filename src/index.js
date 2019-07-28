@@ -55,8 +55,6 @@ ReactDOM.render(
                                 path="/edit-profile"
                                 component={EditProfile}
                             />
-                            <Route exact path="/login" component={Login} />
-                            <Route exact path="/signup" component={SignUp} />
                             <Route
                                 path="*"
                                 render={() => <Redirect to="/" />}
