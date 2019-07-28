@@ -1,7 +1,7 @@
 import { auth, firestore } from '../../config/firebase-config'
 
 export const updateProfile = details => async dispatch => {
-    dispatch({ type: 'UPDATING_PROFILE' })
+    dispatch({ type: 'UPDATING_PROFILE', payload: 'update' })
     const usersRef = await firestore.collection('users')
     const usernames = await usersRef.where('username', '==', details.username)
     const username_results = await usernames
@@ -36,7 +36,7 @@ export const updateProfile = details => async dispatch => {
             .update(details)
         dispatch({ type: 'UPDATE_PROFILE_SUCCESS' })
         setTimeout(() => {
-            return dispatch({ type: 'CLEAR_PROFILE_UPDATE_STATUS' })
+            return dispatch({ type: 'CLEAR_PROFILE_STATE' })
         }, 3000)
     } else {
         dispatch({
@@ -48,7 +48,26 @@ export const updateProfile = details => async dispatch => {
             },
         })
         setTimeout(() => {
-            return dispatch({ type: 'CLEAR_PROFILE_UPDATE_STATUS' })
+            return dispatch({ type: 'CLEAR_PROFILE_STATE' })
         }, 3000)
     }
+}
+
+export const deleteProfile = history => async dispatch => {
+    dispatch({ type: 'DELETING_PROFILE', payload: 'delete' })
+    try {
+        await firestore
+            .collection('users')
+            .doc(auth.currentUser.uid)
+            .delete()
+
+        await auth.currentUser.delete()
+        dispatch({ type: 'DELETE_PROFILE_SUCCESS' })
+        history.push('/')
+    } catch (err) {
+        dispatch({ type: 'DELETE_PROFILE_ERROR', payload: err })
+    }
+    setTimeout(() => {
+        return dispatch({ type: 'CLEAR_PROFILE_STATE' })
+    }, 3000)
 }

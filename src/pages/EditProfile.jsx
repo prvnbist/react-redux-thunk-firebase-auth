@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import {
@@ -14,13 +14,14 @@ import {
     PageHeader,
 } from 'antd'
 
-import { updateProfile } from '../store/actions/profile'
+import { updateProfile, deleteProfile } from '../store/actions/profile'
 
 const EditProfile = ({
     profile,
     auth,
     form,
     updateProfile,
+    deleteProfile,
     errors,
     success,
     status,
@@ -212,12 +213,22 @@ const EditProfile = ({
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                loading={status === null ? false : true}
+                                loading={status.update === null ? false : true}
                                 style={{
-                                    background: status ? '#52C41A' : '#1890FF',
+                                    background: status.update
+                                        ? '#31CB29'
+                                        : '#1890FF',
                                 }}
                             >
-                                {status || 'Update profile'}
+                                {status.update || 'Update profile'}
+                            </Button>
+                            <Button
+                                type="danger"
+                                style={{ marginLeft: '16px' }}
+                                loading={status.delete === null ? false : true}
+                                onClick={() => deleteProfile(history)}
+                            >
+                                {status.delete || 'Delete profile'}
                             </Button>
                         </Form>
                     </main>
@@ -236,9 +247,9 @@ const mapStateToProps = state => ({
     success: state.profile.success,
     status: state.profile.status,
 })
-
 const mapDispatchToProps = dispatch => ({
     updateProfile: details => dispatch(updateProfile(details)),
+    deleteProfile: history => dispatch(deleteProfile(history)),
 })
 
 export default connect(

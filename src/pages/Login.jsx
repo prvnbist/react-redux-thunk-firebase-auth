@@ -7,7 +7,7 @@ import {
     signInWithGoogle,
 } from '../store/actions/auth'
 
-import { Form, Icon, Input, Button, Row, Col, Layout } from 'antd'
+import { Form, Icon, Input, Button, Row, Col, Layout, Alert } from 'antd'
 
 const Login = ({
     signIn,
@@ -18,6 +18,7 @@ const Login = ({
     form,
     auth,
     location,
+    deleted,
 }) => {
     const handleSubmit = e => {
         e.preventDefault()
@@ -42,6 +43,14 @@ const Login = ({
     return (
         <Layout className="content">
             <h2>Login</h2>
+            {deleted && (
+                <Alert
+                    message={deleted}
+                    type="error"
+                    showIcon
+                    style={{ marginBottom: '16px' }}
+                />
+            )}
             <Row id="components-form-demo-normal-login">
                 {error && <span>{error}</span>}
                 <Col>
@@ -132,6 +141,7 @@ const Login = ({
 const mapStateToProps = state => ({
     error: state.auth.authError,
     auth: state.firebase.auth,
+    deleted: state.profile.success,
 })
 
 const mapDispatchToProps = dispatch => ({
