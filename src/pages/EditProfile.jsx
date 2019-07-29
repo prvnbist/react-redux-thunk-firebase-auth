@@ -12,6 +12,7 @@ import {
     Button,
     Alert,
     PageHeader,
+    Select,
 } from 'antd'
 
 import { updateProfile, deleteProfile } from '../store/actions/profile'
@@ -35,13 +36,15 @@ const EditProfile = ({
                     profile.email !== values.email ||
                     profile.username !== values.username ||
                     profile.email !== values.email ||
-                    profile.bio !== values.bio
+                    profile.bio !== values.bio ||
+                    profile.gender !== values.gender
                 )
                     updateProfile(values)
             }
         })
     }
     const { getFieldDecorator } = form
+    const { Option } = Select
     return (
         <Layout className="content" id="edit__profile">
             {profile.isLoaded ? (
@@ -182,6 +185,19 @@ const EditProfile = ({
                                         placeholder="Enter your email"
                                         disabled={profile.provider === 'google'}
                                     />
+                                )}
+                            </Form.Item>
+                            <Form.Item label="Gender">
+                                {getFieldDecorator('gender', {
+                                    initialValue: profile.gender || '',
+                                })(
+                                    <Select
+                                        style={{ width: 120 }}
+                                        placeholder="Select gender"
+                                    >
+                                        <Option value="m">Male</Option>
+                                        <Option value="f">Female</Option>
+                                    </Select>
                                 )}
                             </Form.Item>
                             <Form.Item label="Bio">
