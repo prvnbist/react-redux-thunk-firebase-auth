@@ -7,7 +7,7 @@ import {
 } from '../store/actions/auth'
 import { withRouter } from 'react-router-dom'
 
-import { Layout, Form, Icon, Input, Button, Row, Col } from 'antd'
+import { Layout, Form, Icon, Input, Button, Row, Col, Alert } from 'antd'
 const SignUp = ({
     signUp,
     history,
@@ -29,8 +29,15 @@ const SignUp = ({
     return (
         <Layout className="content">
             <h2>Signup</h2>
+            {auth && (
+                <Alert
+                    message={auth}
+                    type="error"
+                    showIcon
+                    style={{ marginBottom: '16px' }}
+                />
+            )}
             <Row id="components-form-demo-normal-login">
-                {auth && <span>{auth}</span>}
                 <Col>
                     <Form onSubmit={handleSubmit} className="signup-form">
                         <Form.Item>

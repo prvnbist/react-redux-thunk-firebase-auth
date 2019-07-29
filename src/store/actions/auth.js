@@ -32,32 +32,58 @@ export const signOut = history => dispatch => {
 }
 
 export const signUp = ({ name, email, password, username }, history) => {
-    return dispatch => {
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(res => {
-                firestore
-                    .collection('users')
-                    .doc(res.user.uid)
-                    .set({
-                        name: name,
-                        username: username,
-                        email: email,
-                        createdAt: Date.now(),
-                    })
-                return res.user.uid
-            })
-            .then(() => {
-                history.push('/dashboard')
-                dispatch({
-                    type: 'SIGNUP_SUCCESS',
+    return async dispatch => {
+        const usersRef = await firestore.collection('users')
+        const usernames = await usersRef.where('username', '==', username)
+        const username_results = await usernames
+            .get()
+            .then(querySnapshot => {
+                let users = []
+                querySnapshot.forEach(doc => {
+                    users.push(doc.data())
                 })
+                return users
             })
-            .catch(err => {
-                dispatch({ type: 'SIGNUP_ERROR', err: err.message })
-                setTimeout(() => {
-                    return dispatch({ type: 'CLEAR_ERRORS' })
-                }, 3000)
+            .catch(function(error) {
+                console.log('Error getting documents: ', error)
             })
+        console.log(username_results)
+        if (username_results.length === 0) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(res => {
+                    firestore
+                        .collection('users')
+                        .doc(res.user.uid)
+                        .set({
+                            name: name,
+                            username: username,
+                            email: email,
+                            createdAt: Date.now(),
+                        })
+                    return res.user.uid
+                })
+                .then(() => {
+                    history.push('/dashboard')
+                    dispatch({
+                        type: 'SIGNUP_SUCCESS',
+                    })
+                })
+                .catch(err => {
+                    dispatch({ type: 'SIGNUP_ERROR', err: err.message })
+                    setTimeout(() => {
+                        return dispatch({ type: 'CLEAR_ERRORS' })
+                    }, 3000)
+                })
+        } else {
+            dispatch({
+                type: 'SIGNUP_ERROR',
+                err:
+                    username_results.length !== 0 ? 'Username is taken!' : null,
+            })
+            setTimeout(() => {
+                return dispatch({ type: 'CLEAR_ERRORS' })
+            }, 3000)
+        }
     }
 }
 
