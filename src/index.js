@@ -19,8 +19,6 @@ import PrivateRoute from './components/PrivateRoute'
 const Home = lazy(() => import('./pages/Home'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const EditProfile = lazy(() => import('./pages/EditProfile'))
-const Login = lazy(() => import('./pages/Login'))
-const SignUp = lazy(() => import('./pages/SignUp'))
 
 const rrfProps = {
     firebase,
